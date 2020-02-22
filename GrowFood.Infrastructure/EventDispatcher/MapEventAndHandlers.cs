@@ -23,14 +23,14 @@ namespace GrowFood.Infrastructure.EventDispatcher
                 var probablyHandlerServices = eventHandlersAssembly.SelectMany(x => x.GetTypes());
                 foreach (var probablyHandlerService in probablyHandlerServices)
                 {
-                    var handlers = probablyHandlerService.GetInterfaces()
+                    var handleInterfaces = probablyHandlerService.GetInterfaces()
                         .Where(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(THandler).GetGenericTypeDefinition());
 
-                    if (handlers.Any())
+                    if (handleInterfaces.Any())
                     {
-                        foreach (var handler in handlers)
+                        foreach (var handleInterface in handleInterfaces)
                         {
-                            var genericType = handler.GetGenericArguments().FirstOrDefault(t => t == eventType);
+                            var genericType = handleInterface.GetGenericArguments().FirstOrDefault(t => t == eventType);
 
                             if (genericType != null)
                             {
