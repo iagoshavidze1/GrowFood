@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using GrowFood.Application.EventHandlers;
 using GrowFood.Application.Queries.AccountQueries;
+using GrowFood.Domain.Shared;
 using GrowFood.Infrastructure.Data;
+using GrowFood.Infrastructure.EventDispatcher;
 using GrowFood.Shared.Security;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -49,6 +52,9 @@ namespace GrowFood.Api
                .AddDbContext<GrowFoodDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("GrowFoodDbContext")))
                .BuildServiceProvider();
 
+            services.AddScoped(x => new InternalEventsDispacher(services.BuildServiceProvider(), typeof(AggregateRoot).Assembly, typeof(UserCreatedEventHandler).Assembly));
+            services.AddScoped<UserCreatedEventHandler, UserCreatedEventHandler>();
+            services.AddScoped<UnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
