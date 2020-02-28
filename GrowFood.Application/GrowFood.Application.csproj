@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Commands\" />
-    <Folder Include="Shared\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GrowFood.Infrastructure\GrowFood.Infrastructure.csproj" />
+    <ProjectReference Include="..\GrowFood.Shared\GrowFood.Shared.csproj" />
   </ItemGroup>
 
 </Project>

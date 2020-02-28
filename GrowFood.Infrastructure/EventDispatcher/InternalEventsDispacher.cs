@@ -14,8 +14,6 @@ namespace GrowFood.Infrastructure.EventDispatcher
         private readonly IDictionary<Type, List<Type>> _mappHandlers;
         private IServiceProvider _serviceProvider;
 
-
-
         public InternalEventsDispacher(IServiceProvider serviceProvider, Assembly eventsAssembly, params Assembly[] eventHandlersAssembly)
         {
             _mappHandlers = MapEventAndHandlers.GetMappedEventAndHandlers<IHandleEvent<DomainEvent>>(eventsAssembly, eventHandlersAssembly);
